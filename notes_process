@@ -1,0 +1,4 @@
+script sets up callbacks
+init with command line arguments
+init passes callbacks to underying api
+
