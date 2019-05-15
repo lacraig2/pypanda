@@ -1,8 +1,10 @@
 #include "panda/plugin.h"
 
-int virt_mem_write(CPUState *env, target_ulong pc, target_ulong addr, target_ulong size, void* buf){
-    printf("Guest wrote %u bytes at virtual address %u at PC: %u", size, addr, pc);
-    return 0;
+int on_handle_packet(CPUState *env, uint8_t *buf, int size, unt8_t direction, uint64_t old_buf_addr){
+  if (type == PANDA_NET_RX)
+  	printf("Guest RECEIVED packet containing %u bytes", size);
+  else
+	printf("Guest SENT packet containing %u bytes", size);
 }
 
 bool init_plugin(void *self){
