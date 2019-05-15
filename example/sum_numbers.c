@@ -8,8 +8,8 @@ int on_handle_packet(CPUState *env, uint8_t *buf, int size, unt8_t direction, ui
 }
 
 bool init_plugin(void *self){
-  panda_cb pcb = {.virt_mem_before_write = virt_mem_write};
-  panda_register_callback(self, PANDA_CB_VIRT_MEM_BEFORE_WRITE, pcb};
+  panda_cb pcb = {.replay_net_transfer = on_handle_packet};
+  panda_register_callback(self, PANDA_CB_REPLAY_NET_TRANSFER, pcb};
   return true;
 }
 
