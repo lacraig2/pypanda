@@ -1,7 +1,7 @@
 #include "panda/plugin.h"
 
-int on_asid_change(CPUState *env, int old_asid, int new_asid){
-    printf("ASID CHANGED from %u to %u", old_asid, new_asid);
+int on_asid_change(CPUState *env, target_ulong pc, target_ulong addr, target_ulong size, void* buf){
+    printf("Guest wrote %u bytes at virtual address %u at PC: %u", size, addr, pc);
     return 0;
 }
 
