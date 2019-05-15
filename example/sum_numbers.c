@@ -1,13 +1,13 @@
 #include "panda/plugin.h"
 
-int on_asid_change(CPUState *env, target_ulong pc, target_ulong addr, target_ulong size, void* buf){
+int virt_mem_write(CPUState *env, target_ulong pc, target_ulong addr, target_ulong size, void* buf){
     printf("Guest wrote %u bytes at virtual address %u at PC: %u", size, addr, pc);
     return 0;
 }
 
 bool init_plugin(void *self){
-  panda_cb pcb = {.asid_changed = on_asid_change};
-  panda_register_callback(self, PANDA_CB_ASID_CHANGED, pcb};
+  panda_cb pcb = {.virt_mem_before_write = virt_mem_write};
+  panda_register_callback(self, PANDA_CB_VIRT_MEM_BEFORE_WRITE, pcb};
   return true;
 }
 
