@@ -1,18 +1,11 @@
-#include "panda/plugin.h"
 
-int on_handle_packet(CPUState *env, uint8_t *buf, int size, unt8_t direction, uint64_t old_buf_addr){
-  if (type == PANDA_NET_RX)
-  	printf("Guest RECEIVED packet containing %u bytes", size);
-  else
-	printf("Guest SENT packet containing %u bytes", size);
-}
-
-bool init_plugin(void *self){
-  panda_cb pcb = {.replay_net_transfer = on_handle_packet};
-  panda_register_callback(self, PANDA_CB_REPLAY_NET_TRANSFER, pcb};
-  return true;
-}
-
+panda = Panda(qcow="/path/to/my/qcow", mem="2G")
+panda.load_plugin("cool_c_plugin")
+panda.register_callback(...) # we will get to this later
+panda.load_python_plugin(init,"example_plugin")
+panda.begin_replay("/path/to/my/replay")
+panda.run()
+panda.stop()
 			  
 			  
 int sum_numbers(int num_numbers, int* numbers, int (*printout_num)(const void *)){
