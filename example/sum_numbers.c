@@ -1,11 +1,16 @@
+#include "panda/plugin.h"
 
-panda = Panda(qcow="/path/to/my/qcow", mem="2G")
-panda.load_plugin("cool_c_plugin")
-panda.register_callback(...) # we will get to this later
-panda.load_python_plugin(init,"example_plugin")
-panda.begin_replay("/path/to/my/replay")
-panda.run()
-panda.stop()
+int before_block_execute(CPUState *env, TranslationBlock *tb){
+	printf("Hit Block. Ow.");
+	return 0;
+}
+
+bool init_plugin(void *self){\
+	panda_cb pcb = {.before_block_exec = before_block_execute};
+	panda_register_callback(self, PANDA_CB_BEFORE_BLOCK_EXEC, pcb);
+	return true;
+}
+
 			  
 			  
 int sum_numbers(int num_numbers, int* numbers, int (*printout_num)(const void *)){
